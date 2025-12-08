@@ -21,7 +21,7 @@ public class BrowserFactory {
 
 		if (browserName.equalsIgnoreCase("chrome")) {
 
-			WebDriverManager.chromedriver().setup();
+			WebDriverManager.chromedriver().avoidResolutionCache().clearDriverCache().setup();
 			ChromeOptions options = new ChromeOptions();
 			if (System.getenv("JENKINS_HOME") != null) {
 
