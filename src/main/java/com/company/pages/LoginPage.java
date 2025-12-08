@@ -2,14 +2,10 @@ package com.company.pages;
 
 //import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
-import com.naukri.constants.FrameworkConstants;
 import com.naukri.pageHelper.BasePage;
 import com.naukri.utils.ConfigReader;
 import com.naukri.utils.WaitUtils;
-
-import org.junit.Assert;
 
 public class LoginPage extends BasePage {
 
@@ -45,7 +41,7 @@ public class LoginPage extends BasePage {
 
 		String Title = getTitle();
 		System.out.println("Page Title is==>" + Title);
-		//Assert.assertEquals(FrameworkConstants.HOME_PAGE_TITLE, Title);
+		
 	}
 
 }
