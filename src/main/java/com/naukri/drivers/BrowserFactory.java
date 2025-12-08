@@ -21,18 +21,22 @@ public class BrowserFactory {
 
 		if (browserName.equalsIgnoreCase("chrome")) {
 
-			WebDriverManager.chromedriver().setup();
+			WebDriverManager.chromedriver().avoidResolutionCache().clearDriverCache().setup();
 			ChromeOptions options = new ChromeOptions();
-			if (System.getenv("JENKINS_HOME") != null) {
+			boolean isCI = System.getenv("JENKINS_HOME") != null 
+	                || System.getenv("GITHUB_ACTIONS") != null;
 
-				System.out.println("Running in Jenkins → Headless Chrome enabled");
-				options.addArguments("--headless=new");
-				options.addArguments("--no-sandbox");
-				options.addArguments("--disable-dev-shm-usage");
-				options.addArguments("--window-size=1920,1080");
+			if (isCI) {
+			    System.out.println("Running in CI environment → Headless Chrome enabled");
+			    options.addArguments("--headless=new");
+			    options.addArguments("--no-sandbox");
+			    options.addArguments("--disable-dev-shm-usage");
+			    options.addArguments("--window-size=1920,1080");
 			} else {
-				options.addArguments("--start-maximized");
+			    // Local execution
+			    options.addArguments("--start-maximized");
 			}
+			
 			driver = new ChromeDriver(options);
 
 		} else if (browserName.equalsIgnoreCase("edge")) {

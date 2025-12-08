@@ -2,6 +2,7 @@ package com.company.pages;
 
 //import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import com.naukri.pageHelper.BasePage;
 import com.naukri.utils.ConfigReader;
@@ -17,8 +18,18 @@ public class LoginPage extends BasePage {
 	// ACTION METHODS
 
 	public void loginlabel() {
-
-		WaitUtils.waitForClickable(loginlable).click();
+		
+		  WebElement element = WaitUtils.waitForVisibility(loginlable);
+		  
+		  WaitUtils.sleep(1500);
+		try {
+			WaitUtils.waitForClickable(loginlable).click();
+			
+		} catch (Exception e) {
+			
+			System.out.println("Normal click failed → Trying JS Click.");
+	        jsclick(element);
+		}
 
 	}
 
