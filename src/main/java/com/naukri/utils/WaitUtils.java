@@ -20,5 +20,14 @@ public class WaitUtils {
     public static WebElement waitForClickable(By locator) {
         return getWait().until(ExpectedConditions.elementToBeClickable(locator));
     }
+    public static void sleep(long ms) {
+    	try {
+    		Thread.sleep(ms);
+			
+		} catch (Exception e) {
+		}
+    	
+    	
+    }
 }
 
