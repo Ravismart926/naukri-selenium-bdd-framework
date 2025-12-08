@@ -14,42 +14,58 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BrowserFactory {
 
-    public static WebDriver launchBrowser() {
+	public static WebDriver launchBrowser() {
 
-        WebDriver driver = null;
-        String browserName = ConfigReader.get("browser");
+		WebDriver driver = null;
+		String browserName = ConfigReader.get("browser");
 
-        if (browserName.equalsIgnoreCase("chrome")) {
+		if (browserName.equalsIgnoreCase("chrome")) {
 
-            WebDriverManager.chromedriver().setup();
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("--start-maximized");
-            driver = new ChromeDriver(options);
+			WebDriverManager.chromedriver().setup();
+			ChromeOptions options = new ChromeOptions();
+			if (System.getenv("JENKINS_HOME") != null) {
 
-        } else if (browserName.equalsIgnoreCase("edge")) {
+				System.out.println("Running in Jenkins → Headless Chrome enabled");
+				options.addArguments("--headless=new");
+				options.addArguments("--no-sandbox");
+				options.addArguments("--disable-dev-shm-usage");
+				options.addArguments("--window-size=1920,1080");
+			} else {
+				options.addArguments("--start-maximized");
+			}
+			driver = new ChromeDriver(options);
 
-            WebDriverManager.edgedriver().setup();
-            EdgeOptions options = new EdgeOptions();
-            options.addArguments("--start-maximized");
-            driver = new EdgeDriver(options);
+		} else if (browserName.equalsIgnoreCase("edge")) {
 
-        } else if (browserName.equalsIgnoreCase("firefox")) {
+			WebDriverManager.edgedriver().setup();
+			EdgeOptions options = new EdgeOptions();
+			if (System.getenv("JENKINS_HOME") != null) {
+				options.addArguments("--headless=new");
+			}
+			options.addArguments("--start-maximized");
+			driver = new EdgeDriver(options);
 
-            WebDriverManager.firefoxdriver().setup();
-            FirefoxOptions options = new FirefoxOptions();
-            driver = new FirefoxDriver(options);
-            driver.manage().window().maximize();
+		} else if (browserName.equalsIgnoreCase("firefox")) {
 
-        } else {
-            throw new RuntimeException("Invalid browser name: " + browserName);
-        }
+			WebDriverManager.firefoxdriver().setup();
+			FirefoxOptions options = new FirefoxOptions();
+			if (System.getenv("JENKINS_HOME") != null) {
+				options.addArguments("--headless");
+			}
 
-        return driver;
-    }
+			driver = new FirefoxDriver(options);
+			driver.manage().window().maximize();
 
-    public static void quitBrowser(WebDriver driver) {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+		} else {
+			throw new RuntimeException("Invalid browser name: " + browserName);
+		}
+
+		return driver;
+	}
+
+	public static void quitBrowser(WebDriver driver) {
+		if (driver != null) {
+			driver.quit();
+		}
+	}
 }
