@@ -24,6 +24,7 @@ public class LoginPage extends BasePage {
 
 	public void loginlabel() {
 		
+		WaitUtils.sleep(1500);
 		  WebElement element = WaitUtils.waitForVisibility(loginlable);
 		  
 		  WaitUtils.sleep(1500);
