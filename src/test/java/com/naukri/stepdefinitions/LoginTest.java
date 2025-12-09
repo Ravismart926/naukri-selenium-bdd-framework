@@ -21,6 +21,7 @@ public class LoginTest {
 
 		
 		loginpage.popupHandles();
+		
 		loginpage.loginlabel();
 
 	}
