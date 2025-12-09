@@ -13,7 +13,7 @@ import com.naukri.utils.WaitUtils;
 
 public class LoginPage extends BasePage {
 
-	private By loginlable = By.xpath("//a[@id='login_Layer']");
+	private By loginLable = By.id("login_Layer");
 	private By username = By.xpath("//input[@placeholder='Enter your active Email ID / Username']");
 	private By password = By.xpath("//input[@placeholder='Enter your password']");
 	private By loginbutton = By.xpath("//button[@class='btn-primary loginButton']");
@@ -45,11 +45,11 @@ public class LoginPage extends BasePage {
 
 	    try {
 
-	        WebElement element = WaitUtils.waitForVisibility(loginlable);
+	        WebElement element = WaitUtils.waitForVisibility(loginLable);
 
 	        try {
 	        	scrollToElement(element);
-	            WaitUtils.waitForClickable(loginlable).click();
+	            WaitUtils.waitForClickable(loginLable).click();
 	        } catch (Exception e) {
 	            System.out.println("Normal click failed → Trying JS Click.");
 	            jsclick(element);
@@ -63,7 +63,7 @@ public class LoginPage extends BasePage {
 	        WaitUtils.sleep(3000);
 
 	        try {
-	            WebElement element = driver.findElement(loginlable);
+	            WebElement element = driver.findElement(loginLable);
 	            jsclick(element);
 	        } catch (Exception f) {
 	            throw new RuntimeException(
