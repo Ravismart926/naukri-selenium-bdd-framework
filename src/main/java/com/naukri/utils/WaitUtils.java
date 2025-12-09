@@ -10,7 +10,7 @@ import com.naukri.drivers.DriverManager;
 public class WaitUtils {
 
     private static WebDriverWait getWait() {
-        return new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(15));
+        return new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(50));
     }
 
     public static WebElement waitForVisibility(By locator) {

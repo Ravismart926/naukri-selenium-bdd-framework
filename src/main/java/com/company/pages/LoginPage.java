@@ -21,7 +21,7 @@ public class LoginPage extends BasePage {
 		
 		  WebElement element = WaitUtils.waitForVisibility(loginlable);
 		  
-		  WaitUtils.sleep(1500);
+		  WaitUtils.sleep(5000);
 		try {
 			WaitUtils.waitForClickable(loginlable).click();
 			
