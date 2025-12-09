@@ -15,9 +15,17 @@ public class DriverManager {
     }
 
     public static void unloadDriver() {
-        if (tlDriver.get() != null) {
-            tlDriver.get().quit();
+
+        try {
+            if (tlDriver.get() != null) {
+                tlDriver.get().quit();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
             tlDriver.remove();
         }
+
     }
-}
+
+    }
