@@ -1,5 +1,7 @@
 package com.naukri.stepdefinitions;
 
+import java.sql.DriverManager;
+
 import org.openqa.selenium.WebDriver;
 
 import com.company.pages.HomePage;
@@ -17,6 +19,8 @@ public class LoginTest {
 	@Given("User Open the Application and navigate into login page")
 	public void openTheApplication() {
 
+		
+		loginpage.popupHandles();
 		loginpage.loginlabel();
 
 	}
