@@ -1,5 +1,8 @@
 package com.company.pages;
 
+import java.sql.DriverManager;
+import java.util.List;
+
 //import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,10 +13,12 @@ import com.naukri.utils.WaitUtils;
 
 public class LoginPage extends BasePage {
 
-	private By loginlable = By.id("//a[contains(text(),'Login') or contains(text(),'login')]");
+	private By loginlable = By.xpath("//a[@id='login_Layer']");
 	private By username = By.xpath("//input[@placeholder='Enter your active Email ID / Username']");
 	private By password = By.xpath("//input[@placeholder='Enter your password']");
 	private By loginbutton = By.xpath("//button[@class='btn-primary loginButton']");
+	
+	private By Dismisspopup=By.xpath("//*[contains(text(),'Got it')]");
 
 	// ACTION METHODS
 
@@ -21,7 +26,7 @@ public class LoginPage extends BasePage {
 		
 		  WebElement element = WaitUtils.waitForVisibility(loginlable);
 		  
-		  WaitUtils.sleep(5000);
+		  WaitUtils.sleep(1500);
 		try {
 			WaitUtils.waitForClickable(loginlable).click();
 			
@@ -53,6 +58,22 @@ public class LoginPage extends BasePage {
 		String Title = getTitle();
 		System.out.println("Page Title is==>" + Title);
 		
+	}
+	
+	public void popupHandles() {
+	    try {
+	        List<WebElement> popups = driver.findElements(Dismisspopup);
+
+	        if (!popups.isEmpty()) {
+	            System.out.println("Popup detected → closing...");
+	            WaitUtils.waitForClickable(Dismisspopup).click();
+	        } else {
+	            System.out.println("No popup found → continuing test...");
+	        }
+
+	    } catch (Exception e) {
+	        System.out.println("Popup not present → continue execution.");
+	    }
 	}
 
 }
