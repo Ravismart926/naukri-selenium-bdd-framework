@@ -13,7 +13,7 @@ import com.naukri.utils.WaitUtils;
 
 public class LoginPage extends BasePage {
 
-	private By loginLable = By.id("login_Layer");
+	private By loginLable = By.xpath("//a[@id='login_Layer' or normalize-space(text())='Login']");
 	private By username = By.xpath("//input[@placeholder='Enter your active Email ID / Username']");
 	private By password = By.xpath("//input[@placeholder='Enter your password']");
 	private By loginbutton = By.xpath("//button[@class='btn-primary loginButton']");
