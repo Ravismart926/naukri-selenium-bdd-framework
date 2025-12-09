@@ -15,11 +15,13 @@ public class BasePage {
 	protected WebDriver driver;
 
 	private WebDriverWait wait;
-
+	private JavascriptExecutor js;
+	
 	public BasePage() {
 
 		this.driver = DriverManager.getDriver();
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		this.js    = (JavascriptExecutor) driver;
 	}
 
 	protected void waitForTheElementVisible(WebElement element) {
@@ -65,9 +67,11 @@ public class BasePage {
 	}
 	
 	public void jsclick(WebElement element) {
-		
-		JavascriptExecutor js=(JavascriptExecutor)driver;
-		js.executeScript("arguments[0].click", element);
+	    js.executeScript("arguments[0].click();", element);
+	}
+	
+	public void scrollToElement(WebElement element) {
+	    js.executeScript("arguments[0].scrollIntoView(true);", element);
 	}
 	
 
