@@ -5,18 +5,17 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
   schedule:
-    - cron: "0 6 * * *"
-      timezone: "Asia/Kolkata"   # Runs daily 6 AM IST
-
-  workflow_dispatch:      # Manual trigger option
+    - cron: "0 0 * * *"     # Runs daily at 5:30 AM IST (00:00 UTC)
+      timezone: "Asia/Kolkata"
+  workflow_dispatch:         # Allows manual trigger
 
 jobs:
   run-tests:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout Code
         uses: actions/checkout@v4
 
@@ -26,14 +25,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Chrome & ChromeDriver
+      - name: Install Chrome & ChromeDriver
         uses: browser-actions/setup-chrome@v1
 
       - name: Display Chrome Version
         run: google-chrome --version
 
       - name: Run Maven Tests in Headless Mode
-        run: mvn clean test -Dheadless=true
+        run: mvn clean test -Dheadless=true -DforkCount=2 -DreuseForks=false
 
       - name: Upload Cucumber HTML Report
         uses: actions/upload-artifact@v4
