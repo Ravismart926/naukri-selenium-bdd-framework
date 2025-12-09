@@ -4,4 +4,10 @@
 *.iml
 /logs/
 /*.db
-config/config.properties
+extent-report.html
+*.html
+*.json
+*.xml
+.classpath
+.project
+.settings/
