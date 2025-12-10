@@ -23,27 +23,18 @@ public class BrowserFactory {
 
 			WebDriverManager.chromedriver().setup();
 			ChromeOptions options = new ChromeOptions();
-			
-			boolean isCI = System.getenv("JENKINS_HOME") != null 
-	                || System.getenv("GITHUB_ACTIONS") != null;
+
+			boolean isCI = System.getenv("JENKINS_HOME") != null || System.getenv("GITHUB_ACTIONS") != null;
 
 			if (isCI) {
-			    System.out.println("Running in CI environment → Headless Chrome enabled");
-			    options.addArguments("--headless=new");
-			    options.addArguments("--no-sandbox");
-			    options.addArguments("--disable-dev-shm-usage");
-			    options.addArguments("--window-size=1920,1080");
-			    options.addArguments("--disable-gpu");
-			    options.addArguments("--enable-javascript");
-			    options.addArguments("--disable-blink-features=AutomationControlled");
-			    options.addArguments("--headless=new");
-			    options.addArguments("--disable-gpu");
-			    options.addArguments("--no-sandbox");
-			    options.addArguments("--disable-dev-shm-usage");
-			    options.addArguments("--window-size=1920,1080");
+				System.out.println("Running in CI environment → Headless Chrome enabled");
+				options.addArguments("--headless=new");
+				options.addArguments("--no-sandbox");
+				options.addArguments("--disable-dev-shm-usage");
+				options.addArguments("--window-size=1920,1080");
+
 			}
-			
-			
+
 			driver = new ChromeDriver(options);
 			driver.manage().window().maximize();
 
