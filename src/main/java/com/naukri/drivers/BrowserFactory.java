@@ -1,5 +1,6 @@
 package com.naukri.drivers;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -35,12 +36,33 @@ public class BrowserFactory {
 			    options.addArguments("--disable-gpu");
 			    options.addArguments("--enable-javascript");
 			    options.addArguments("--disable-blink-features=AutomationControlled");
+			    options.addArguments("--headless=new");
+			    options.addArguments("--disable-gpu");
+			    options.addArguments("--no-sandbox");
+			    options.addArguments("--disable-dev-shm-usage");
+			    options.addArguments("--window-size=1920,1080");
+
+			    // Prevent bot detection
+			    options.addArguments("--disable-blink-features=AutomationControlled");
+			    options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
+			    options.setExperimentalOption("useAutomationExtension", false);
+
+			    // Prevent Cloudflare blocking
+			    options.addArguments("--disable-features=IsolateOrigins,site-per-process");
+			    options.addArguments("--disable-infobars");
+			    options.addArguments("--start-maximized");
+
+			    // Allow CORS
+			    options.addArguments("--remote-allow-origins=*");
 			} else {
 			    // Local execution
 			    options.addArguments("--start-maximized");
 			}
 			
 			driver = new ChromeDriver(options);
+			((JavascriptExecutor) driver).executeScript(
+				    "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+				);
 
 		} else if (browserName.equalsIgnoreCase("edge")) {
 
