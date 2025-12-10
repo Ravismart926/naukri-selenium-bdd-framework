@@ -20,57 +20,25 @@ public class LoginPage extends BasePage {
 	
 	private By Dismisspopup=By.xpath("//*[contains(text(),'Got it')]");
 
+	
 	// ACTION METHODS
 
-	/*
-	 * public void loginlabel() {
-	 * 
-	 * WaitUtils.sleep(1500); WebElement element =
-	 * WaitUtils.waitForVisibility(loginlable);
-	 * 
-	 * WaitUtils.sleep(1500); try { WaitUtils.waitForClickable(loginlable).click();
-	 * 
-	 * } catch (Exception e) {
-	 * 
-	 * System.out.println("Normal click failed → Trying JS Click.");
-	 * jsclick(element); }
-	 * 
-	 * }
-	 */
+	  public void loginlabel() {
+	  
+	  WebElement element = WaitUtils.waitForVisibility(loginLable);
+	  WaitUtils.waitForVisibility(loginLable);
+	  
+	  WaitUtils.sleep(1500); try { WaitUtils.waitForClickable(loginLable).click();;
+	  
+	  } catch (Exception e) {
+	  
+	  System.out.println("Normal click failed → Trying JS Click.");
+	  jsclick(element); }
+	  
+	  }
+	 
 
-	public void loginlabel() {
-
-	    // Extra wait for CI slow loading
-	    WaitUtils.sleep(3000);
-
-	    try {
-
-	        WebElement element = WaitUtils.waitForVisibility(loginLable);
-
-	        try {
-	        	scrollToElement(element);
-	            WaitUtils.waitForClickable(loginLable).click();
-	        } catch (Exception e) {
-	            System.out.println("Normal click failed → Trying JS Click.");
-	            jsclick(element);
-	        }
-
-	    } catch (Exception ex) {
-
-	        System.out.println("Login button not visible → Retrying...");
-
-	        // Retry for CI
-	        WaitUtils.sleep(3000);
-
-	        try {
-	            WebElement element = driver.findElement(loginLable);
-	            jsclick(element);
-	        } catch (Exception f) {
-	            throw new RuntimeException(
-	                "Login button still NOT found after retries → Page not fully loaded in CI.");
-	        }
-	    }
-	}
+	
 
 	
 	public void enterUsername() {

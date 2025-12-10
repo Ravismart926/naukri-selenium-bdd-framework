@@ -1,6 +1,5 @@
 package com.naukri.drivers;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -22,8 +21,9 @@ public class BrowserFactory {
 
 		if (browserName.equalsIgnoreCase("chrome")) {
 
-			WebDriverManager.chromedriver().avoidResolutionCache().clearDriverCache().setup();
+			WebDriverManager.chromedriver().setup();
 			ChromeOptions options = new ChromeOptions();
+			
 			boolean isCI = System.getenv("JENKINS_HOME") != null 
 	                || System.getenv("GITHUB_ACTIONS") != null;
 
@@ -41,47 +41,24 @@ public class BrowserFactory {
 			    options.addArguments("--no-sandbox");
 			    options.addArguments("--disable-dev-shm-usage");
 			    options.addArguments("--window-size=1920,1080");
-
-			    // Prevent bot detection
-			    options.addArguments("--disable-blink-features=AutomationControlled");
-			    options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
-			    options.setExperimentalOption("useAutomationExtension", false);
-
-			    // Prevent Cloudflare blocking
-			    options.addArguments("--disable-features=IsolateOrigins,site-per-process");
-			    options.addArguments("--disable-infobars");
-			    options.addArguments("--start-maximized");
-
-			    // Allow CORS
-			    options.addArguments("--remote-allow-origins=*");
-			} else {
-			    // Local execution
-			    options.addArguments("--start-maximized");
 			}
 			
+			
 			driver = new ChromeDriver(options);
-			((JavascriptExecutor) driver).executeScript(
-				    "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
-				);
+			driver.manage().window().maximize();
 
 		} else if (browserName.equalsIgnoreCase("edge")) {
 
 			WebDriverManager.edgedriver().setup();
 			EdgeOptions options = new EdgeOptions();
-			if (System.getenv("JENKINS_HOME") != null) {
-				options.addArguments("--headless=new");
-			}
-			options.addArguments("--start-maximized");
+
 			driver = new EdgeDriver(options);
+			driver.manage().window().maximize();
 
 		} else if (browserName.equalsIgnoreCase("firefox")) {
 
 			WebDriverManager.firefoxdriver().setup();
 			FirefoxOptions options = new FirefoxOptions();
-			if (System.getenv("JENKINS_HOME") != null) {
-				options.addArguments("--headless");
-			}
-
 			driver = new FirefoxDriver(options);
 			driver.manage().window().maximize();
 
@@ -96,6 +73,6 @@ public class BrowserFactory {
 		if (driver != null) {
 			driver.quit();
 		}
-		 DriverManager.unloadDriver();
+		DriverManager.unloadDriver();
 	}
 }
