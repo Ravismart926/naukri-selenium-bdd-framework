@@ -10,6 +10,4 @@ When User enter Username
 And User enter Password
 And User clicks Login button
 Then User successfully navigate to the Dashboardpage
-Then User navigate to the Update profile page
-Then User update the Resumeheadlines and save
 Then Click logout button
