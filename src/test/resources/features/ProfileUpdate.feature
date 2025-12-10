@@ -3,7 +3,7 @@ Feature: Login and update the Profile
 As a vlaid user login and update the Userprofile 
 and Logout
 Scenario: Update the Profile and Logout 
-#Given User Open the Application and navigate into login page
+Given User Open the Application and navigate into login page
 When User enter Username
 And User enter Password
 And User clicks Login button
